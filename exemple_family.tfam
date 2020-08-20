@@ -1,0 +1,10 @@
+Ex_Emple	A	NA	NA	1	1
+Ex_Emple	B	NA	NA	2	1
+Ex_Emple	C	NA	NA	1	1
+Ex_Emple	D	NA	NA	2	1
+Ex_Emple	E	A	B	1	1
+Ex_Emple	F	C	D	2	1
+Ex_Emple	G	E	F	2	2
+Ex_Emple	H	E	F	2	1
+Ex_Emple	I	E	F	2	1
+Ex_Emple	J	E	F	1	1

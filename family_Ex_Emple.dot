@@ -1,0 +1,64 @@
+graph Genealogy {
+splines = ortho; rankdir = TB
+	subgraph "Generation 0" {
+		rank=same
+		A [color=blue shape=square]
+		B [color=blue shape=circle]
+		A_B [shape=point]
+		A -- A_B
+		A_B -- B
+		C [color=blue shape=square]
+		D [color=blue shape=circle]
+		C_D [shape=point]
+		C -- C_D
+		C_D -- D
+	}
+	subgraph "Generation 0 progeny" {
+		rank=same
+		progeny_E [shape=point]
+		progeny_F [shape=point]
+	}
+	subgraph "Links to generation 0 progeny" {
+		A_B -- progeny_E
+		C_D -- progeny_F
+	}
+	subgraph "Generation 1" {
+		rank=same
+		E [color=blue shape=square]
+		F [color=blue shape=circle]
+		E_F [shape=point]
+		E -- E_F
+		E_F -- F
+	}
+	subgraph "Links to parental generation" {
+		progeny_E -- E
+		progeny_F -- F
+	}
+	subgraph "Generation 1 progeny" {
+		rank=same
+		progeny_E_F [shape=point]
+		progeny_G [shape=point]
+		progeny_G -- progeny_H
+		progeny_H [shape=point]
+		progeny_H -- progeny_E_F
+		progeny_I [shape=point]
+		progeny_E_F -- progeny_I
+		progeny_J [shape=point]
+		progeny_I -- progeny_J
+	}
+	subgraph "Links to generation 1 progeny" {
+		E_F -- progeny_E_F
+	}
+	subgraph "Generation 2" {
+		G [color=red shape=circle]
+		H [color=blue shape=circle]
+		I [color=blue shape=circle]
+		J [color=blue shape=square]
+	}
+	subgraph "Links to parental generation" {
+		progeny_G -- G
+		progeny_H -- H
+		progeny_I -- I
+		progeny_J -- J
+	}
+}
