@@ -7,7 +7,7 @@ Python program allowing to automaticaly produce a genealogical tree and the asso
 
 Exemple (contained into the Makefile):
 
-    ./exec_ped2dot.py exemple_family
+    ./exec_ped2dot.py exemple_family.tfam
 
 Allow the creation of this tree:
 
