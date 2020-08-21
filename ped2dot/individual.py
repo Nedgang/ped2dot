@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 """
 """
-##########
-# IMPORT #
-##########
-from numpy import nan
 
 #########
 # CLASS #
@@ -19,6 +15,6 @@ class Individual:
         self.phenotype = phenotype
         self.parents = parents
         self.generation = -1
-        if self.parents is not nan:
+        if self.parents != 0:
             self.father = parents.split("_")[0]
             self.mother = parents.split("_")[1]

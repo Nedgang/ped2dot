@@ -4,8 +4,6 @@
 ##########
 # IMPORT #
 ##########
-from numpy import nan
-
 from graphviz import Graph
 
 from .couple import Couple
@@ -57,7 +55,7 @@ class Genealogy:
             )
 
     def compute_individual_generation(self, indiv):
-        if indiv.parents is nan:
+        if indiv.parents is 0:
             return 0
         elif indiv.generation >= 0:
             return indiv.generation
