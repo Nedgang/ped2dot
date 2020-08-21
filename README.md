@@ -11,7 +11,7 @@ Exemple (contained into the Makefile):
 
 Allow the creation of this tree:
 
-![Genealogical tree exemple](family_Ex_Emple.dot.pdf)
+![Genealogical tree exemple](family_Ex_Emple.png)
 
 ## Using directly in your programs:
 
