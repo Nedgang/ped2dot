@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-"""
-"""
 
 #########
 # CLASS #
 #########
 class Individual:
     """
+    Object used to store all needed information for each individual in the graph.
     """
 
     def __init__(self, name, sex, phenotype, parents):

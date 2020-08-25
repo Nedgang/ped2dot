@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """
+Main functions, used to parse pedigree file, create and populate genealogy,
+and trigger the graph creation.
 """
 ##########
 # IMPORT #
@@ -17,8 +19,7 @@ def ped_to_dot(
     color_dic={1: "blue", 2: "red", 0: "black"},
 ):
     """
-    Main function used to read pedigree file, create genealogy object for each family
-    and then trigger graph creation from it.
+    Main function used to read pedigree file, and create genealogy for each family.
     """
     print("Reading file:", filepath)
     pedigree = pd.read_csv(
@@ -34,6 +35,9 @@ def ped_to_dot(
 
 
 def create_family_graph(family_pedigree, shape_dic, color_dic, family_id):
+    """
+    Function used to populate genealogy and initiate the graph creation.
+    """
     genealogy = Genealogy()
     # Reading pedigree file line by line to complete family relationships
     for index, row in family_pedigree.iterrows():
