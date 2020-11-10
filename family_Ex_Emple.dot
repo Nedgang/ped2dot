@@ -4,19 +4,19 @@ splines = ortho; rankdir = TB
 		rank=same
 		A [color=blue shape=square]
 		B [color=blue shape=circle]
-		A_B [shape=point]
+		A_B [shape=point style=invis width=0]
 		A -- A_B
 		A_B -- B
 		C [color=blue shape=square]
 		D [color=blue shape=circle]
-		C_D [shape=point]
+		C_D [shape=point style=invis width=0]
 		C -- C_D
 		C_D -- D
 	}
 	subgraph "Generation 0 progeny" {
 		rank=same
-		progeny_E [shape=point]
-		progeny_F [shape=point]
+		progeny_E [shape=point style=invis width=0]
+		progeny_F [shape=point style=invis width=0]
 	}
 	subgraph "Links to generation 0 progeny" {
 		A_B -- progeny_E
@@ -26,7 +26,7 @@ splines = ortho; rankdir = TB
 		rank=same
 		E [color=blue shape=square]
 		F [color=blue shape=circle]
-		E_F [shape=point]
+		E_F [shape=point style=invis width=0]
 		E -- E_F
 		E_F -- F
 	}
@@ -36,14 +36,14 @@ splines = ortho; rankdir = TB
 	}
 	subgraph "Generation 1 progeny" {
 		rank=same
-		progeny_E_F [shape=point]
-		progeny_G [shape=point]
+		progeny_E_F [shape=point style=invis width=0]
+		progeny_G [shape=point style=invis width=0]
 		progeny_G -- progeny_H
-		progeny_H [shape=point]
+		progeny_H [shape=point style=invis width=0]
 		progeny_H -- progeny_E_F
-		progeny_I [shape=point]
+		progeny_I [shape=point style=invis width=0]
 		progeny_E_F -- progeny_I
-		progeny_J [shape=point]
+		progeny_J [shape=point style=invis width=0]
 		progeny_I -- progeny_J
 	}
 	subgraph "Links to generation 1 progeny" {

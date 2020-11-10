@@ -131,7 +131,7 @@ class Genealogy:
                 )
 
                 # Creation of couple node
-                subgraph.node(couple.id, shape="point")
+                subgraph.node(couple.id, shape="point", width="0", style="invis")
 
                 # Linking each parental node to couple node
                 subgraph.edge(couple.male, couple.id)
@@ -140,17 +140,25 @@ class Genealogy:
                 # Organising progeny nodes repartition and links.
                 if couple.nb_children() == 1:
                     progeny_subgraph.node(
-                        "progeny_" + couple.children[0], shape="point"
+                        "progeny_" + couple.children[0],
+                        shape="point",
+                        width="0",
+                        style="invis",
                     )
                     links_progeny.edge(couple.id, "progeny_" + couple.children[0])
 
                 elif couple.nb_children() % 2 == 0:
                     half_children = couple.nb_children() / 2
-                    progeny_subgraph.node("progeny_" + couple.id, shape="point")
+                    progeny_subgraph.node(
+                        "progeny_" + couple.id, shape="point", width="0", style="invis"
+                    )
                     links_progeny.edge(couple.id, "progeny_" + couple.id)
                     for i in range(0, couple.nb_children()):
                         progeny_subgraph.node(
-                            "progeny_" + couple.children[i], shape="point"
+                            "progeny_" + couple.children[i],
+                            shape="point",
+                            width="0",
+                            style="invis",
                         )
                         if i < half_children and i + 1 < half_children:
                             progeny_subgraph.edge(
@@ -174,7 +182,10 @@ class Genealogy:
                 elif couple.nb_children() % 2 == 1:
                     half_children = couple.nb_children() // 2
                     progeny_subgraph.node(
-                        "progeny_" + couple.children[half_children], shape="point"
+                        "progeny_" + couple.children[half_children],
+                        shape="point",
+                        width="0",
+                        style="invis",
                     )
                     links_progeny.edge(
                         couple.id, "progeny_" + couple.children[half_children]
@@ -184,7 +195,10 @@ class Genealogy:
                             pass
                         elif i < half_children:
                             progeny_subgraph.node(
-                                "progeny_" + couple.children[i], shape="point"
+                                "progeny_" + couple.children[i],
+                                shape="point",
+                                width="0",
+                                style="invis",
                             )
                             links_progeny.edge(
                                 "progeny_" + couple.children[i],
@@ -193,7 +207,10 @@ class Genealogy:
                             pass
                         elif i > half_children:
                             progeny_subgraph.node(
-                                "progeny_" + couple.children[i], shape="point"
+                                "progeny_" + couple.children[i],
+                                shape="point",
+                                width="0",
+                                style="invis",
                             )
                             links_progeny.edge(
                                 "progeny_" + couple.children[i - 1],
