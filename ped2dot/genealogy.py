@@ -88,14 +88,14 @@ class Genealogy:
                 + 1
             )
 
-    def create_graph(self, cfg_graph, cfg_shape, cfg_colors, family_id):
+    def create_graph(self, cfg_graph, cfg_format, cfg_shape, cfg_colors, family_id):
         """
         Create a dotfile and its associated graph from the Genealogy object.
         """
         # Need to have a generation determined for each indiv and couple
         self.compute_generations()
         # Graph initialisation
-        graph = Graph("Genealogy", format="pdf")
+        graph = Graph("Genealogy", format=cfg_format)
         graph.body.append(cfg_graph)
         # Need to draw from the older to the younger generation
         for generation in range(0, self.generation_max):
