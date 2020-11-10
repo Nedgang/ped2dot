@@ -40,9 +40,9 @@ For the CLI:
 - docopt
 
 ## Version:
-1.1.2
+1.1.3
 
 ## Next improvements:
-- Better code documentation.
-- Use of a config file for graph settings.
+- Better code documentation
+- Improved visualisation in case of individuals without children
 - Packaging on Pypi

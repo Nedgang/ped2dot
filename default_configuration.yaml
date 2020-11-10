@@ -3,7 +3,7 @@
 format: pdf
 
 # Graphs general configuration, will be the header of the .dot file
-graph_configuration: "splines = ortho; rankdir = TB"
+graph_configuration: "splines = ortho; rankdir = TB; center = True"
 
 # Shapes are used to represent individuals sex:
 # 0: unknown

@@ -1,5 +1,5 @@
 graph Genealogy {
-splines = ortho; rankdir = TB
+splines = ortho; rankdir = TB; center = True
 	subgraph "Generation 0" {
 		rank=same
 		A001 [color=blue shape=square]

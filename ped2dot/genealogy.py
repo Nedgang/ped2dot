@@ -35,7 +35,10 @@ class Genealogy:
         if name not in self.individuals:
             self.individuals[name] = Individual(name, sex, phenotype, parents)
         else:
-            print("Warning: two individuals have the same ID", name)
+            print(
+                "Warning: two individuals have the same ID, keeping only the first met",
+                name,
+            )
             pass
 
     def exist_individual(self, name):
@@ -88,12 +91,22 @@ class Genealogy:
                 + 1
             )
 
+    def define_single_individuals(self):
+        """
+        Function used to determine for each individual if it will be drawn as single or as parent
+        """
+        for couple in self.couples.items():
+            self.individuals[couple[1].male].has_couple()
+            self.individuals[couple[1].female].has_couple()
+
     def create_graph(self, cfg_graph, cfg_format, cfg_shape, cfg_colors, family_id):
         """
         Create a dotfile and its associated graph from the Genealogy object.
         """
         # Need to have a generation determined for each indiv and couple
         self.compute_generations()
+        # Define singles and with children individuals
+        self.define_single_individuals()
         # Graph initialisation
         graph = Graph("Genealogy", format=cfg_format)
         graph.body.append(cfg_graph)
@@ -104,6 +117,13 @@ class Genealogy:
                 for couple in self.couples.items()
                 if couple[1].generation == generation
             ]
+
+            individuals = {
+                indiv[1]
+                for indiv in self.individuals.items()
+                if indiv[1].generation == generation and indiv[1].in_couple == False
+            }
+
             # Couples node subgraph
             subgraph = Graph("Generation {}".format(generation))
             subgraph.attr(rank="same")
@@ -127,7 +147,7 @@ class Genealogy:
                 subgraph.node(
                     couple.female,
                     shape=cfg_shape[self.individuals[couple.female].sex],
-                    color=cfg_colors[self.individuals[couple.female].phenotype]
+                    color=cfg_colors[self.individuals[couple.female].phenotype],
                 )
 
                 # Creation of couple node
@@ -138,7 +158,6 @@ class Genealogy:
                 subgraph.edge(couple.id, couple.female)
 
                 # Organising progeny nodes repartition and links.
-                print(couple.id)
                 if couple.nb_children() == 1:
                     progeny_subgraph.node(
                         "progeny_" + couple.children[0],
@@ -172,8 +191,8 @@ class Genealogy:
                             )
                         elif i == half_children and i - 1 < half_children:
                             progeny_subgraph.edge(
-                                "progeny_" + couple.id, "progeny_" + couple.children[i],
-                                color = "red"
+                                "progeny_" + couple.id,
+                                "progeny_" + couple.children[i],
                             )
                         else:
                             progeny_subgraph.edge(
@@ -226,6 +245,13 @@ class Genealogy:
                         links_parents.edge("progeny_" + couple.male, couple.male)
                     if self.individuals[couple.female].has_parents():
                         links_parents.edge("progeny_" + couple.female, couple.female)
+
+            for indiv in individuals:
+                subgraph.node(indiv.id,
+                    shape=cfg_shape[indiv.sex],
+                    color=cfg_colors[indiv.phenotype]
+                )
+                subgraph.edge("progeny_" + indiv.id, indiv.id)
 
             # Adding all the differents subgraphs to the graph in correct order.
             graph.subgraph(subgraph)
