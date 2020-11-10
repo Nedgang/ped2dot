@@ -1,0 +1,24 @@
+# Those 4 categories are necessary for the programm, you can modify them, but shouldn't
+# delete them unless you want to recode a part of the programm.
+format: pdf
+
+# Graphs general configuration, will be the header of the .dot file
+graph_configuration: "splines = ortho; rankdir = TB"
+
+# Shapes are used to represent individuals sex:
+# 0: unknown
+# 1: male
+# 2: female
+shapes:
+    0: plain
+    1: square
+    2: circle
+
+# Shapes are used to represent individuals phenotypes:
+# 0: unknown
+# 1: control
+# 2: case
+colors:
+    0: black
+    1: blue
+    2: red

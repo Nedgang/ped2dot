@@ -88,7 +88,7 @@ class Genealogy:
                 + 1
             )
 
-    def create_graph(self, shape_dic, color_dic, family_id):
+    def create_graph(self, cfg_graph, cfg_shape, cfg_colors, family_id):
         """
         Create a dotfile and its associated graph from the Genealogy object.
         """
@@ -96,7 +96,7 @@ class Genealogy:
         self.compute_generations()
         # Graph initialisation
         graph = Graph("Genealogy", format="pdf")
-        graph.body.append("splines = ortho; rankdir = TB")
+        graph.body.append(cfg_graph)
         # Need to draw from the older to the younger generation
         for generation in range(0, self.generation_max):
             couples = [
@@ -120,14 +120,14 @@ class Genealogy:
                 # Adding male node
                 subgraph.node(
                     couple.male,
-                    shape=shape_dic[self.individuals[couple.male].sex],
-                    color=color_dic[self.individuals[couple.male].phenotype],
+                    shape=cfg_shape[self.individuals[couple.male].sex],
+                    color=cfg_colors[self.individuals[couple.male].phenotype],
                 )
                 # Adding female node
                 subgraph.node(
                     couple.female,
-                    shape=shape_dic[self.individuals[couple.female].sex],
-                    color=color_dic[self.individuals[couple.female].phenotype],
+                    shape=cfg_shape[self.individuals[couple.female].sex],
+                    color=cfg_colors[self.individuals[couple.female].phenotype],
                 )
 
                 # Creation of couple node
@@ -240,7 +240,7 @@ class Genealogy:
         ]
         for indiv in younger_individuals:
             subgraph.node(
-                indiv.id, shape=shape_dic[indiv.sex], color=color_dic[indiv.phenotype]
+                indiv.id, shape=cfg_shape[indiv.sex], color=cfg_colors[indiv.phenotype]
             )
             links_parents.edge("progeny_" + indiv.id, indiv.id)
 

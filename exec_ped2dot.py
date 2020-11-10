@@ -4,9 +4,10 @@ Ped2Dot is a python program allowing to automaticaly produce a genealogical tree
 associated dot file from a pedigree file.
 
 Usage:
-    exec_ped2dot.py <input_file>
+    exec_ped2dot.py <input_file> [--config=<filepath.yaml>]
 
 Options:
+    -c, --config=<filepath.yaml>    Path to configuration file [default: default_configuration.yaml]
     -h, --help                      Show this screen.
     -v, --version                   Show version.
 """
@@ -20,11 +21,12 @@ from ped2dot.ped2dot import ped_to_dot
 # MAIN #
 ########
 def main(argument):
-    ped_to_dot(argument["<input_file>"])
+    ped_to_dot(argument["<input_file>"], argument["--config"])
+
 
 ########
 # EXEC #
 ########
-if __name__ == '__main__':
-    arguments = docopt(__doc__, version = "1.0")
+if __name__ == "__main__":
+    arguments = docopt(__doc__, version="1.0")
     main(arguments)

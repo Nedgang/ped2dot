@@ -7,20 +7,18 @@ and trigger the graph creation.
 # IMPORT #
 ##########
 import pandas as pd
+import yaml
 
 from .genealogy import Genealogy
 
 #############
 # FUNCTIONS #
 #############
-def ped_to_dot(
-    filepath,
-    shape_dic={0: "plain", 1: "square", 2: "circle"},
-    color_dic={1: "blue", 2: "red", 0: "black"},
-):
+def ped_to_dot(filepath, config_path):
     """
     Main function used to read pedigree file, and create genealogy for each family.
     """
+
     print("Reading file:", filepath)
     pedigree = pd.read_csv(
         filepath,
@@ -28,13 +26,25 @@ def ped_to_dot(
         names=["Family", "ID", "Father", "Mother", "Sex", "Phenotype"],
     )
     pedigree = pedigree.fillna(0)
+
+    # Extracting configuration from the configuration file
+    cfg = yaml.load(open(config_path, "r"), Loader=yaml.Loader)
+    cfg_shape = cfg["shapes"]
+    cfg_color = cfg["colors"]
+    cfg_graph = cfg["graph_configuration"]
+
+    # Creating a graph for each family
     for family_id in pedigree["Family"].unique():
         create_family_graph(
-            pedigree[pedigree["Family"] == family_id], shape_dic, color_dic, family_id
+            pedigree[pedigree["Family"] == family_id],
+            cfg_graph,
+            cfg_shape,
+            cfg_color,
+            family_id,
         )
 
 
-def create_family_graph(family_pedigree, shape_dic, color_dic, family_id):
+def create_family_graph(family_pedigree, cfg_graph, cfg_shape, cfg_color, family_id):
     """
     Function used to populate genealogy and initiate the graph creation.
     """
@@ -55,4 +65,4 @@ def create_family_graph(family_pedigree, shape_dic, color_dic, family_id):
             genealogy.add_couple(parents, row["Father"], row["Mother"], row["ID"])
 
     # Need to plot the tree from top to bottom
-    genealogy.create_graph(shape_dic, color_dic, family_id)
+    genealogy.create_graph(cfg_graph, cfg_shape, cfg_color, family_id)
