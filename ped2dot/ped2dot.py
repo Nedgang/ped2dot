@@ -24,6 +24,7 @@ def ped_to_dot(filepath, config_path):
         filepath,
         sep="\t",
         names=["Family", "ID", "Father", "Mother", "Sex", "Phenotype"],
+        dtype={"Family": str, "ID": str, "Father": str, "Mother": str, "Sex": int, "Phenotype": int}
     )
     pedigree = pedigree.fillna(0)
 
@@ -32,19 +33,21 @@ def ped_to_dot(filepath, config_path):
     cfg_shape = cfg["shapes"]
     cfg_color = cfg["colors"]
     cfg_graph = cfg["graph_configuration"]
+    cfg_format = cfg["format"]
 
     # Creating a graph for each family
     for family_id in pedigree["Family"].unique():
         create_family_graph(
             pedigree[pedigree["Family"] == family_id],
             cfg_graph,
+            cfg_format,
             cfg_shape,
             cfg_color,
             family_id,
         )
 
 
-def create_family_graph(family_pedigree, cfg_graph, cfg_shape, cfg_color, family_id):
+def create_family_graph(family_pedigree, cfg_graph, cfg_format, cfg_shape, cfg_color, family_id):
     """
     Function used to populate genealogy and initiate the graph creation.
     """
@@ -64,5 +67,5 @@ def create_family_graph(family_pedigree, cfg_graph, cfg_shape, cfg_color, family
         if parents != 0:
             genealogy.add_couple(parents, row["Father"], row["Mother"], row["ID"])
 
-    # Need to plot the tree from top to bottom
-    genealogy.create_graph(cfg_graph, cfg_shape, cfg_color, family_id)
+    # Plotting the tree
+    genealogy.create_graph(cfg_graph, cfg_format, cfg_shape, cfg_color, family_id)
