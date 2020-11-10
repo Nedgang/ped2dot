@@ -127,7 +127,7 @@ class Genealogy:
                 subgraph.node(
                     couple.female,
                     shape=cfg_shape[self.individuals[couple.female].sex],
-                    color=cfg_colors[self.individuals[couple.female].phenotype],
+                    color=cfg_colors[self.individuals[couple.female].phenotype]
                 )
 
                 # Creation of couple node
@@ -138,6 +138,7 @@ class Genealogy:
                 subgraph.edge(couple.id, couple.female)
 
                 # Organising progeny nodes repartition and links.
+                print(couple.id)
                 if couple.nb_children() == 1:
                     progeny_subgraph.node(
                         "progeny_" + couple.children[0],
@@ -171,7 +172,8 @@ class Genealogy:
                             )
                         elif i == half_children and i - 1 < half_children:
                             progeny_subgraph.edge(
-                                "progeny_" + couple.id, "progeny_" + couple.children[i]
+                                "progeny_" + couple.id, "progeny_" + couple.children[i],
+                                color = "red"
                             )
                         else:
                             progeny_subgraph.edge(
@@ -220,8 +222,10 @@ class Genealogy:
                 # Linking to parental generation if existing
                 if generation > 0:
                     links_parents = Graph("Links to parental generation")
-                    links_parents.edge("progeny_" + couple.male, couple.male)
-                    links_parents.edge("progeny_" + couple.female, couple.female)
+                    if self.individuals[couple.male].has_parents():
+                        links_parents.edge("progeny_" + couple.male, couple.male)
+                    if self.individuals[couple.female].has_parents():
+                        links_parents.edge("progeny_" + couple.female, couple.female)
 
             # Adding all the differents subgraphs to the graph in correct order.
             graph.subgraph(subgraph)

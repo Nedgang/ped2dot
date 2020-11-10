@@ -40,7 +40,7 @@ For the CLI:
 - docopt
 
 ## Version:
-1.1.1
+1.1.2
 
 ## Next improvements:
 - Better code documentation.
